@@ -1,0 +1,73 @@
+<configuration>
+ <colors>
+   <!--
+    Features that allow a color choice are:
+      - background, foreground, plot, axis, and labels
+
+     Allowed colorMap types (case insensitive) and values:
+      - RGBFloat - 3 floating point values, comma separated
+      - sRGBFloat - 4 floating point values, comma separated
+                  (alpha is fourth value.)
+      - RGBHex - 1 hexadecimal value, 6 digits, no prefixes (# or 0x)
+      - sRGBHex - 1 hexadecimal value, 8 digits, no prefixes (# or 0x)
+                  (alpha is first two digits.)
+      - RGBInt - 3 integer values, comma separated
+      - sRGBInt - 4 integer values, comma separated
+                  (alpha is fourth value.)
+      - name - one of these names, case insensitive (no alpha value):
+          black, blue, cyan, darkGray, gray, green, lightGray, magenta,
+          orange, pink, red, white, yellow
+
+      Examples: 
+       <background colormap="RGBFloat">0.274, 0.094, 0.4</background>
+       <foreground colormap="sRGBFloat">0.274, 0.094, 0.4, 0.5</background>
+       <plot colormap="RGBHex">0x461866</background>
+       <label colormap="sRGBHex">0x46186680</background>
+       <axis colormap="RGBInt">70, 24, 102</background>
+       <label colormap="sRGBInt">70, 24, 102, 128</background>
+       <plot colormap="name">Blue</background>
+   -->
+   <background colormap="RGBHex">230036</background>
+   <foreground colormap="RGBHex">adabae</foreground>
+   <plot1 colormap="RGBHex">7f618f</plot1>
+   <plot2 colormap="RGBHex">ff0340</plot2>
+   <axis colormap="RGBHex">adabae</axis>
+   <label colormap="RGBHex">adabae</label>
+   <labelbox colormap="RGBHex">735086</labelbox>
+ </colors> 
+ <windowParams> 
+   <!--
+     xPos and yPos are the location (integers) of the top-left corner of
+     the window on the screen.
+     Width is the total window width, height is total window height. Units
+     are either pixels or percentage of screen size. Percentage can be a
+     float (0.0 - 1.0) or percentage (0% - 100%).
+     alwaysOnTop instructs the window manager to keep this window on top.
+   -->
+   <xPos>1440</xPos>
+   <yPos>0</yPos>
+   <width units="percent">0.25</width>
+   <height units="percent">0.15</height>
+   <!--
+      Window remains above all other windows, True or False, case insensitive.
+      Window manager dependent.
+   -->
+   <alwaysOnTop>false</alwaysOnTop>
+ </windowParams> 
+ <plotParams>
+   <barWidth>20</barWidth>
+   <showAxes>true</showAxes>
+   <showLabels>true</showLabels>
+   <showGraduations>true</showGraduations>
+   <showGraduationLabels>true</showGraduationLabels>
+   <command>
+     ping -i 3 8.8.8.8 | sed -u 's/^.*time=//g; s/ ms//g'
+   </command>
+   <!-- The maximum value the plot will display. Incoming values over this
+        are truncated. Float format. -->
+   <plotMax>0</plotMax>
+   <!-- The minimum value the plot will display. The plot will never drop
+        below this value regardless of incoming values. Float format. -->
+   <plotMin>0</plotMin>
+ </plotParams>
+</configuration>

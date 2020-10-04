@@ -1,0 +1,57 @@
+<configuration>
+ <colors>
+   <!--
+    Features that allow a color choice are:
+      - background, foreground, plot, axis, and labels
+
+     Allowed colorMap types (case insensitive) and values:
+      - RGBFloat - 3 floating point values, comma separated
+      - sRGBFloat - 4 floating point values, comma separated
+                  (alpha is fourth value.)
+      - RGBHex - 1 hexadecimal value, 6 digits, no prefixes (# or 0x)
+      - sRGBHex - 1 hexadecimal value, 8 digits, no prefixes (# or 0x)
+                  (alpha is first two digits.)
+      - RGBInt - 3 integer values, comma separated
+      - sRGBInt - 4 integer values, comma separated
+                  (alpha is fourth value.)
+      - name - one of these names, case insensitive (no alpha value):
+          black, blue, cyan, darkGray, gray, green, lightGray, magenta,
+          orange, pink, red, white, yellow
+
+      Examples: 
+       <background colormap="RGBFloat">0.274, 0.094, 0.4</background>
+       <foreground colormap="sRGBFloat">0.274, 0.094, 0.4, 0.5</background>
+       <plot colormap="RGBHex">0x461866</background>
+       <label colormap="sRGBHex">0x46186680</background>
+       <axis colormap="RGBInt">70, 24, 102</background>
+       <label colormap="sRGBInt">70, 24, 102, 128</background>
+       <plot colormap="name">Blue</background>
+   -->
+   <background colormap="RGBFloat">0.274, 0.094, 0.4</background>
+   <foreground colormap="sRGBFloat">0.274, 0.094, 0.4, 0.5</foreground>
+   <plot colormap="RGBHex">FF461866</plot>
+   <axis colormap="sRGBHex">80461866</axis>
+   <label colormap="RGBInt">70, 24, 102</label>
+ </colors> 
+ <windowParams> 
+   <!--
+     xPos and yPos are the location (integers) of the top-left corner of
+     the window on the screen.
+     Width is the total window width, height is total window height. Units
+     are either pixels or percentage of screen size as float (0.0 - 1.0).
+     alwaysOnTop instructs the window manager to keep this window on top.
+   -->
+   <xPos>600</xPos>
+   <yPos>0</yPos>
+   <width units="percent">600</width>
+   <height units="px">300</height>
+   <!--
+      Window remains above all other windows, True or False, case insensitive.
+      Window manager dependent.
+   -->
+   <alwaysOnTop>true</alwaysOnTop>
+ </windowParams> 
+ <plotParams>
+   <barWidth>3</barWidth>
+ </plotParams>
+</configuration>

@@ -1,0 +1,146 @@
+
+import java.awt.BorderLayout;  
+import java.awt.Color;  
+import java.awt.Font;  
+import java.awt.Graphics;  
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;  
+import java.awt.event.WindowEvent;  
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.Scanner;
+import javax.swing.JFrame;  
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JPanel;
+
+public class Plotter extends JFrame
+{  
+  JPopupMenu popup;
+
+  public Plotter()  
+  {  
+    super("ttyPlAWT");  
+    this.setSize(400, 300);  
+
+    this.popup = new PopUp();
+
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    // addWindowListener(new WindowAdapter() {
+    //   public void windowClosing(WindowEvent e) {
+    //     dispose();
+    //   }
+    // });
+    // addWindowListener(new WindowAdapter() {
+    //   public void windowClosed(WindowEvent e) {
+    //     System.exit(0);
+    //   }
+    // });
+
+    addMouseListener(new MouseAdapter() {
+      public void mousePressed(MouseEvent e) {
+        //popup.show(this, e.getX(), e.getY());
+        showMenu(e.getX(), e.getY());
+        System.out.println("mousePressed!");
+      }
+    });
+  }  
+
+  private void showMenu(int x, int y) {
+    this.popup.show(this, x, y);
+  }
+
+  public static void main(String args[]) throws IOException {  
+    System.out.println("ttyPlAWT is running...");
+    new Plotter().run();
+  }  
+
+  private void run() throws IOException {
+
+    Plot plot = new Plot();
+    this.getContentPane().add(plot, BorderLayout.CENTER);
+    this.pack();
+    this.setVisible(true);  
+
+    if(System.in.available() == 0) {
+      System.out.println("Piped input not detected...");
+    }
+    else {
+      Scanner scanner = new Scanner(System.in);
+      while (scanner.hasNextLine()) {
+        Pattern p = Pattern.compile("^\\s*([\\d\\.]+)\\s*$");
+        Matcher m = p.matcher(scanner.nextLine());
+        if (m.matches()) {
+          //System.out.println("the match is: -" + Double.parseDouble(m.group())+ "-");
+          plot.addPoint(Double.parseDouble(m.group()));
+        }
+        plot.repaint();
+      }
+    }
+  }  
+
+}
+
+class Plot extends JPanel
+{  
+  private List<Double> points;
+  Double max = 0.0;
+  Double min = 0.0;
+  Double avg = 0.0;
+
+  public Plot() {
+    setBackground (Color.DARK_GRAY);  
+    setSize(400, 200);  
+    points = new ArrayList<Double>();
+  }
+
+  public void addPoint(Double f) {
+    this.points.add(f);
+    this.max = Collections.max(points);
+    this.min = Collections.min(points);
+  }
+
+  public void paintComponent(Graphics g)  
+  {  
+    int canvasWidth = getWidth() - 100;
+    int arraySize = points.size();
+    this.avg = 0.0;
+
+    g.setColor(Color.LIGHT_GRAY);  
+    g.fillRect(0, 0, 400, 200);
+
+    ListIterator<Double> iterator = points.listIterator();
+    g.setColor(Color.RED);  
+    while (iterator.hasNext()) {
+      int next = (int) (iterator.next() * 1.0);
+      avg += next;
+      int index = iterator.nextIndex();
+      g.fillRect(canvasWidth - arraySize + index + 2, 150 - (next * 1), 3, next);  
+    }
+
+    avg = avg / points.size();
+    g.setColor(Color.BLUE);  
+    g.setFont(new Font("San-Serif", Font.BOLD, 12));
+    g.drawString("Max: " + max, 20, 180);
+    g.drawString("Min: " + min, 100, 180);
+    g.drawString("Avg: " + String.format("%.1f", avg), 180, 180);
+  }
+}    
+
+class PopUp extends JPopupMenu {
+  public PopUp () {
+    JMenuItem item1 = new JMenuItem("test1");
+    JMenuItem item2 = new JMenuItem("test2");
+    JMenuItem item3 = new JMenuItem("test3");
+    add(item1);
+    add(item2);
+    add(item3);
+  }
+}
