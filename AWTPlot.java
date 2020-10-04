@@ -26,6 +26,7 @@ limitations under the License.
 // TODO: multiple plots per conf.xml
 // TODO: add new plot via pop-up menu
 // TODO: save current config to file
+// TODO: clean up the mess in paint...
 
 import java.awt.Canvas;
 import java.awt.Color;
